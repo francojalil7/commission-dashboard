@@ -15,7 +15,15 @@ import vercelStyleGuideNext from "@vercel/style-guide/eslint/next";
 export default [
   // Ignores configuration
   {
-    ignores: ["node_modules", ".next", "out", "coverage", ".idea"],
+    ignores: [
+      "node_modules",
+      ".next",
+      "out",
+      "coverage",
+      ".idea",
+      "src/generated",
+      "prisma/migrations",
+    ],
   },
   // General configuration
   {
