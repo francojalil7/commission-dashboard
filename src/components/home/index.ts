@@ -6,6 +6,6 @@ export * from "./DashboardMetrics";
 
 export * from "./DealsTable";
 
-export * from "./DealsTabs";
+export * from "./DashboardTabs";
 
 export * from "./SkeletonDashboardMetrics";

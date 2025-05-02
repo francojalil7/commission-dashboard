@@ -22,7 +22,7 @@ export function DealsTable({deals}: {deals: StandardDeal[]}) {
         <TableBody>
           {deals.length === 0 ? (
             <TableRow>
-              <TableCell className="h-24 text-center" colSpan={6}>
+              <TableCell className="h-36 text-center" colSpan={6}>
                 No hay datos disponibles
               </TableCell>
             </TableRow>

@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from "react";
 
-import {DashboardMetrics, DealsTable, SkeletonDashboardMetrics} from "./";
+import {DashboardMetrics, DashboardTabs, SkeletonDashboardMetrics} from "./";
 
 import {StandardDeal} from "@/crms/types";
 import {importAllCRMs} from "@/app/actions/importsCRMs";
@@ -10,6 +10,7 @@ import {getDashboardStats} from "@/lib/getDashboardStats";
 
 export function DashboardClient() {
   const [deals, setDeals] = useState<StandardDeal[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadDeals = async () => {
@@ -18,7 +19,9 @@ export function DashboardClient() {
 
         setDeals(result);
       } catch (err) {
-        console.error("❌ Error importing deals:", err);
+        console.error("Error importing deals:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -30,7 +33,7 @@ export function DashboardClient() {
   return (
     <>
       {deals.length === 0 ? <SkeletonDashboardMetrics /> : <DashboardMetrics stats={stats} />}
-      <DealsTable deals={deals} />
+      <DashboardTabs deals={deals} loading={loading} />
     </>
   );
 }
