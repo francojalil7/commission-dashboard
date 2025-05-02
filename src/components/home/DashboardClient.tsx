@@ -2,11 +2,15 @@
 
 import {DashboardActions, DashboardMetrics, DashboardTabs} from "./";
 
+import {StandardDeal} from "@/crms/types";
 import {DealsProvider} from "@/contexts";
+interface DashboardManagerProps {
+  deals: StandardDeal[];
+}
 
-export function DashboardManager() {
+export function DashboardManager({deals}: DashboardManagerProps) {
   return (
-    <DealsProvider>
+    <DealsProvider initialDeals={deals}>
       <DashboardActions />
       <DashboardMetrics />
       <DashboardTabs />

@@ -16,8 +16,13 @@ interface DealsContextValue {
 
 const DealsContext = createContext<DealsContextValue | undefined>(undefined);
 
-export function DealsProvider({children}: {children: React.ReactNode}) {
-  const [deals, setDeals] = useState<StandardDeal[]>([]);
+interface DealsProviderProps {
+  children: React.ReactNode;
+  initialDeals?: StandardDeal[];
+}
+
+export function DealsProvider({children, initialDeals}: DealsProviderProps) {
+  const [deals, setDeals] = useState<StandardDeal[]>(initialDeals || []);
   const [loading, setLoading] = useState(false);
 
   const fetchDealsFromDb = async () => {

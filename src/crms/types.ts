@@ -4,7 +4,7 @@ export interface StandardDeal {
   id: string;
   amount: number;
   salesperson: string;
-  date: string;
+  date: string | Date;
   source: CrmName;
 }
 
