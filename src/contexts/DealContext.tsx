@@ -23,8 +23,7 @@ interface DealsProviderProps {
 
 export function DealsProvider({children, initialDeals}: DealsProviderProps) {
   const [deals, setDeals] = useState<StandardDeal[]>(initialDeals || []);
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(initialDeals?.length === 0);
   const fetchDealsFromDb = async () => {
     setLoading(true);
     try {

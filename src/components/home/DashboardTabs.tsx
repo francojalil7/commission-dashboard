@@ -28,7 +28,9 @@ export function DashboardTabs() {
   ];
 
   useEffect(() => {
-    fetchDealsFromDb();
+    if (deals.length === 0) {
+      fetchDealsFromDb();
+    }
   }, []);
 
   return (
