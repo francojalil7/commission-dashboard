@@ -1,6 +1,7 @@
 "use client";
 
 import {createContext, useContext, useState} from "react";
+import {toast} from "sonner";
 
 import {fetchDeals, postDeals} from "@/services/dealsService";
 import {StandardDeal} from "@/crms/types";
@@ -33,14 +34,19 @@ export function DealsProvider({children}: {children: React.ReactNode}) {
   };
 
   const syncAllFromCrms = async () => {
+    const toastId = toast.loading("Importando datos de todos los CRMs...");
+
     setLoading(true);
     try {
       const allDeals = (await Promise.all(CRM_ADAPTERS.map((adapter) => adapter.load()))).flat();
 
       await postDeals(allDeals);
       await fetchDealsFromDb();
+
+      toast.success("Importación completa de todos los CRMs ✅", {id: toastId});
     } catch (err) {
       console.error("Error syncing CRMs", err);
+      toast.error("Ocurrió un error al importar los CRMs", {id: toastId});
     } finally {
       setLoading(false);
     }

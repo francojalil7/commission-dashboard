@@ -1,4 +1,5 @@
 import {RefreshCw, Upload} from "lucide-react";
+import {toast} from "sonner";
 
 import {Button} from "../ui/button";
 
@@ -20,13 +21,18 @@ export function DashboardActions() {
     })),
   ];
   const handleImportCRM = async (crmName: string) => {
+    const toastId = toast.loading(`Importando datos de ${crmName}...`);
+
     try {
       const importedDeals = await importCRMByName(crmName);
 
       await postDeals(importedDeals);
       await fetchDealsFromDb();
+
+      toast.success(`Importación exitosa de ${crmName}`, {id: toastId});
     } catch (error) {
-      console.error(`Error importing ${crmName}:`, error);
+      toast.error(`Error al importar ${crmName}`, {id: toastId});
+      console.error(error);
     }
   };
 

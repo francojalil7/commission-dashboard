@@ -1,3 +1,6 @@
+"use client";
+import {useEffect} from "react";
+
 import {Tabs, TabsList, TabsTrigger} from "../ui/tabs";
 
 import {DashboardTabPanel} from ".";
@@ -6,7 +9,7 @@ import {StandardDeal} from "@/crms/types";
 import {useDealsContext} from "@/contexts";
 
 export function DashboardTabs() {
-  const {deals, loading} = useDealsContext();
+  const {deals, loading, fetchDealsFromDb} = useDealsContext();
   const crmSources = Array.from(new Set(deals.map((d) => d.source)));
 
   const CRM_TABS = [
@@ -23,6 +26,10 @@ export function DashboardTabs() {
       filterFn: (deal: StandardDeal) => deal.source === source,
     })),
   ];
+
+  useEffect(() => {
+    fetchDealsFromDb();
+  }, []);
 
   return (
     <Tabs className="w-full" defaultValue="all">
