@@ -46,7 +46,7 @@ export function DealsProvider({children}: {children: React.ReactNode}) {
       toast.success("Importación completa de todos los CRMs ✅", {id: toastId});
     } catch (err) {
       console.error("Error syncing CRMs", err);
-      toast.error("Ocurrió un error al importar los CRMs", {id: toastId});
+      toast.error("Ocurrió un error al importar los CRMs 😓", {id: toastId});
     } finally {
       setLoading(false);
     }
