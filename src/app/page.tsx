@@ -1,9 +1,11 @@
-import {Button} from "@/components/ui/button";
+import {DashboardHeader} from "@/components/home";
+import {DashboardClient} from "@/components/home/DashboardClient";
 
 export default async function HomePage() {
   return (
-    <main>
-      <Button>👋</Button>
+    <main className="flex flex-col space-y-6">
+      <DashboardHeader />
+      <DashboardClient />
     </main>
   );
 }

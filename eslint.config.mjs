@@ -97,6 +97,7 @@ export default [
         "@typescript-eslint/require-await": "off",
         "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/no-confusing-void-expression": "off",
+        "no-console": ["error", {allow: ["error"]}],
         "@typescript-eslint/no-unused-vars": [
           "warn",
           {

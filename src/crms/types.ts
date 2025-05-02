@@ -1,12 +1,14 @@
+import {CrmName} from "./constants";
+
 export interface StandardDeal {
   id: string;
   amount: number;
   salesperson: string;
   date: string;
-  source: string;
+  source: CrmName;
 }
 
 export interface CRMAdapter {
-  name: string;
+  name: CrmName;
   load: () => Promise<StandardDeal[]>;
 }

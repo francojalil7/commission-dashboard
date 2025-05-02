@@ -12,6 +12,8 @@ export async function GET() {
     {deal_id: "A8", amount: 3400, rep_name: "Diego Paredes", created_on: "2024-03-08"},
     {deal_id: "A9", total: 2500, rep_name: "Martina Gutiérrez", sold_at: "2024-03-09"},
     {deal_id: "A10", amount: 4600, rep_name: "Nicolás Torres", created_on: "2024-03-10"},
+    {deal_id: "A11", total: 5800, rep_name: "Valentina Castro", sold_at: "2024-03-11"},
+    {deal_id: "A12", amount: 3900, rep_name: "Emilio Vargas", created_on: "2024-03-12"},
   ];
 
   return NextResponse.json(data);

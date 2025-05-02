@@ -6,11 +6,19 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky && husky install"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@prisma/client": "^6.7.0",
-    "@radix-ui/react-slot": "^1.1.2",
+    "@radix-ui/react-slot": "^1.2.0",
+    "@radix-ui/react-tabs": "^1.1.9",
     "@tailwindcss/postcss": "4.0.9",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
@@ -44,6 +52,8 @@
     "eslint-plugin-react-compiler": "0.0.0-experimental-c8b3f72-20240517",
     "eslint-plugin-react-hooks": "^5.1.0",
     "globals": "^15.15.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.5.1",
     "prettier": "^3.5.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "typescript": "^5.7.3",
