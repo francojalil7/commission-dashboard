@@ -1,11 +1,11 @@
 import {DashboardHeader} from "@/components/home";
-import {DashboardClient} from "@/components/home/DashboardClient";
+import {DashboardManager} from "@/components/home";
 
 export default async function HomePage() {
   return (
     <main className="flex flex-col space-y-6">
       <DashboardHeader />
-      <DashboardClient />
+      <DashboardManager />
     </main>
   );
 }

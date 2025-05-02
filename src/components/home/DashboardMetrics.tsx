@@ -2,17 +2,21 @@ import {DollarSign, ArrowDownUp, FileJson, FileSpreadsheet} from "lucide-react";
 
 import {Card, CardContent, CardHeader, CardTitle} from "../ui/card";
 
-import {CRM_NAMES, CrmName} from "@/crms/constants";
+import {SkeletonDashboardMetrics} from "./SkeletonDashboardMetrics";
 
-interface DashboardMetricsProps {
-  stats: {
-    totalCommission: number;
-    totalDeals: number;
-    crmStats: {source: CrmName; count: number}[];
-  };
-}
+import {CRM_NAMES} from "@/crms/constants";
+import {useDealsContext} from "@/contexts";
+import {getDashboardStats} from "@/lib/getDashboardStats";
 
-export function DashboardMetrics({stats}: DashboardMetricsProps) {
+export function DashboardMetrics() {
+  const {deals, loading} = useDealsContext();
+
+  const stats = getDashboardStats(deals);
+
+  if (loading) {
+    return <SkeletonDashboardMetrics />;
+  }
+
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card>

@@ -1,43 +1,32 @@
-import {RefreshCw} from "lucide-react";
+import {Tabs, TabsList, TabsTrigger} from "../ui/tabs";
 
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "../ui/card";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "../ui/tabs";
-
-import {DealsTable} from ".";
+import {DashboardTabPanel} from ".";
 
 import {StandardDeal} from "@/crms/types";
-import {CRM_NAMES} from "@/crms/constants";
+import {useDealsContext} from "@/contexts";
 
-interface DashboardTabsProps {
-  deals: StandardDeal[];
-  loading: boolean;
-}
+export function DashboardTabs() {
+  const {deals, loading} = useDealsContext();
+  const crmSources = Array.from(new Set(deals.map((d) => d.source)));
 
-const CRM_TABS = [
-  {
-    key: "all",
-    title: "Todos los CRMs",
-    description: "Visualización combinada de todos los deals transformados a formato estándar",
-    filterFn: () => true,
-  },
-  {
-    key: CRM_NAMES.A,
-    title: CRM_NAMES.A,
-    description: `Transformación de datos del ${CRM_NAMES.A}`,
-    filterFn: (deal: StandardDeal) => deal.source === CRM_NAMES.A,
-  },
-  {
-    key: CRM_NAMES.B,
-    title: CRM_NAMES.B,
-    description: `Transformación de datos del ${CRM_NAMES.B}`,
-    filterFn: (deal: StandardDeal) => deal.source === CRM_NAMES.B,
-  },
-];
+  const CRM_TABS = [
+    {
+      key: "all",
+      title: "Todos los CRMs",
+      description: "Visualización combinada de todos los deals transformados a formato estándar",
+      filterFn: () => true,
+    },
+    ...crmSources.map((source) => ({
+      key: source,
+      title: source,
+      description: `Transformación de datos del ${source}`,
+      filterFn: (deal: StandardDeal) => deal.source === source,
+    })),
+  ];
 
-export function DashboardTabs({deals, loading}: DashboardTabsProps) {
   return (
     <Tabs className="w-full" defaultValue="all">
-      <TabsList className={`grid w-full grid-cols-${CRM_TABS.length}`}>
+      <TabsList className="flex w-full flex-wrap justify-center gap-2">
         {CRM_TABS.map((tab) => (
           <TabsTrigger key={tab.key} value={tab.key}>
             {tab.title}
@@ -46,23 +35,14 @@ export function DashboardTabs({deals, loading}: DashboardTabsProps) {
       </TabsList>
 
       {CRM_TABS.map((tab) => (
-        <TabsContent key={tab.key} value={tab.key}>
-          <Card>
-            <CardHeader>
-              <CardTitle>{tab.title}</CardTitle>
-              <CardDescription>{tab.description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {loading ? (
-                <div className="flex justify-center py-8">
-                  <RefreshCw className="text-muted-foreground h-8 w-8 animate-spin" />
-                </div>
-              ) : (
-                <DealsTable deals={deals.filter(tab.filterFn)} />
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
+        <DashboardTabPanel
+          key={tab.key}
+          deals={deals.filter(tab.filterFn)}
+          description={tab.description}
+          loading={loading}
+          tabKey={tab.key}
+          title={tab.title}
+        />
       ))}
     </Tabs>
   );
